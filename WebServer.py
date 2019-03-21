@@ -1,7 +1,9 @@
 #import socket module
 from socket import *
 
-#source: http://joaoventura.net/blog/2017/python-webserver/
+# sources
+# Web server -- http://joaoventura.net/blog/2017/python-webserver/
+# RTT calculate == https://www.geeksforgeeks.org/program-calculate-round-trip-time-rtt/
 
 serverPort = 8000
 serverHost = '0.0.0.0'
