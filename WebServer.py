@@ -9,16 +9,15 @@ serverHost = '0.0.0.0'
 serverSocket = socket(AF_INET, SOCK_STREAM)
 serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
 serverSocket.bind((serverHost, serverPort))
-serverSocket.listen(1)
-print("Listening on  port %s ..." % serverPort)
+serverSocket.listen(5)
 
 while True:
     # Establish the connection
+    print("Ready to serve...")
     connectionSocket, addr = serverSocket.accept()
 
     try:
-        # Get the client request
-        message = connectionSocket.recv(1024).decode()
+        message = connectionSocket.recv(1024)
         print(message)
 
         # Parse HTTP headers
@@ -28,15 +27,14 @@ while True:
         outputdata = file.read()
         file.close()
 
-        response = 'HTTP/1.1 200 OK\n\n' + outputdata
+        connectionSocket.send('HTTP/1.1 200 OK\n\n')
 
+        for i in range(0, len(outputdata)):
+            connectionSocket.send(outputdata[i])
+        connectionSocket.close()
 
     except IOError:
-        errorFile = open('404.html')
-        errorOutput = errorFile.read()
-        response = 'HTTP/1.1 404 NOT FOUND\n\n' + errorOutput
-
-    connectionSocket.sendall(response.encode())
-    connectionSocket.close()
+        connectionSocket.send('ERROR 404: File Not Found')
+        connectionSocket.close()
 
 serverSocket.close()
