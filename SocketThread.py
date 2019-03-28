@@ -27,13 +27,11 @@ class SocketThread(threading.Thread):
                 self.connectionSocket.sendall(response.encode())
 
             except IOError:
-                response = 'HTTP/1.1 404 Not Found\n\nFile Not Found'
+                response = 'HTTP/1.1 404 Not Found\n\n404 File Not Found'
                 self.connectionSocket.sendall(response.encode())
 
-        time.sleep(4)
-        # self.connectionSocket.sendall(response.encode())
-        # self.connectionSocket.close()
+        self.connectionSocket.close()
 
     def stop(self):
         self.running = False
-        self.connectionSocket.close()
+        self.connectionSocket.shutdown()

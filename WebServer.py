@@ -26,4 +26,7 @@ if __name__ == '__main__':
 
         threads.append(socketThread)
 
+        # connectionSocket.close()
+        # socketThread.stop()
+
     serverSocket.close()
