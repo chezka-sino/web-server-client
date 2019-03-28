@@ -8,10 +8,9 @@ class SocketThread(threading.Thread):
         threading.Thread.__init__(self)
         self.connectionSocket = conn
         self.address = addr
-        self.running = True
 
     def run(self):
-        while self.running:
+        while True:
             try:
                 message = self.connectionSocket.recv(1024).decode()
                 print(message)
@@ -30,8 +29,4 @@ class SocketThread(threading.Thread):
                 response = 'HTTP/1.1 404 Not Found\n\n404 File Not Found'
                 self.connectionSocket.sendall(response.encode())
 
-        self.connectionSocket.close()
-
-    def stop(self):
-        self.running = False
-        self.connectionSocket.shutdown()
+            self.connectionSocket.close()

@@ -12,7 +12,7 @@ if __name__ == '__main__':
     serverSocket = socket(AF_INET, SOCK_STREAM)
     serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     serverSocket.bind((serverHost, serverPort))
-    serverSocket.listen(5)
+    serverSocket.listen()
     threads = []
 
     while True:
@@ -25,8 +25,5 @@ if __name__ == '__main__':
         socketThread.start()
 
         threads.append(socketThread)
-
-        # connectionSocket.close()
-        # socketThread.stop()
 
     serverSocket.close()
