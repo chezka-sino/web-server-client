@@ -24,6 +24,19 @@ if __name__ == '__main__':
         socketThread.setDaemon(True)
         socketThread.start()
 
+        hostname, aliases, addresses = gethostbyaddr(gethostbyname(gethostname()))
+        print('|==========================================================')
+        print('| Computer Name:     ', gethostname())
+        print('| Hostname:          ', hostname)
+        print('| Aliases:           ', aliases)
+        print('| Addresses:         ', addresses)
+        print('| Socket Family:     ', connectionSocket.family)
+        print('| Socket Type:       ', connectionSocket.type)
+        print('| Protocol:          ', connectionSocket.proto)
+        print('| Timeout:           ', connectionSocket.gettimeout())
+        print('| Peer name:         ', connectionSocket.getpeername())
+        print('|==========================================================\n')
+
         threads.append(socketThread)
 
     serverSocket.close()

@@ -6,12 +6,13 @@ server_host = sys.argv[1]
 server_port = sys.argv[2]
 filename = sys.argv[3]
 
-# start time
-init_time = time.time()
-
 host_port = "%s:%s" %(server_host, server_port)
 
 try:
+
+    # start time
+    init_time = time.time()
+
     client_socket = socket(AF_INET,SOCK_STREAM)
     client_socket.connect((server_host,int(server_port)))
     header = {
@@ -21,7 +22,6 @@ try:
         "Host": host_port,
     }
     http_header = "\r\n".join("%s:%s" %(item,header[item]) for item in header)
-    print(http_header)
 
     client_socket.send(http_header.encode())
 
@@ -30,15 +30,23 @@ except IOError:
 
 response_message = client_socket.recv(1024).decode()
 
-client_socket.close()
-print(response_message)
-
-print('========================\n')
-print('TEST OUTPUT')
-print('host name?', gethostbyname())
-print('socket family?', socket.getaddrinfo())
-
-
 # end time
 end_time = time.time()
-print('\nRTT:', '{0:.2f}'.format(abs(init_time - end_time) * 1000) + 'ms')
+
+print('|==========================================================')
+hostname, aliases, addresses = gethostbyaddr(gethostbyname(gethostname()))
+print('| Hostname:          ', hostname)
+print('| Aliases:           ', aliases)
+print('| Addresses:         ', addresses)
+print('| Socket Family:     ', client_socket.family)
+print('| Socket Type:       ', client_socket.type)
+print('| Protocol:          ', client_socket.proto)
+print('| Timeout:           ', client_socket.gettimeout())
+print('| Peer name:         ', client_socket.getpeername())
+print('| RTT:               ', '{0:.2f}'.format(abs(init_time - end_time) * 1000) + 'ms')
+print('|==========================================================\n')
+
+client_socket.close()
+
+print('Response message:\n', response_message)
+
