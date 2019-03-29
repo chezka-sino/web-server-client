@@ -7,6 +7,7 @@ class SocketThread(threading.Thread):
         threading.Thread.__init__(self)
         self.connectionSocket = conn
         self.address = addr
+        self.connectionSocket.settimeout(10.0)
 
     def run(self):
         while True:
@@ -28,4 +29,3 @@ class SocketThread(threading.Thread):
                 response = 'HTTP/1.1 404 Not Found\n\n404 File Not Found'
                 self.connectionSocket.sendall(response.encode())
 
-        self.connectionSocket.close()

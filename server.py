@@ -12,7 +12,7 @@ if __name__ == '__main__':
     serverSocket = socket(AF_INET, SOCK_STREAM)
     serverSocket.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     serverSocket.bind((serverHost, serverPort))
-    serverSocket.listen()
+    serverSocket.listen(5)
     threads = []
 
     while True:
@@ -32,11 +32,12 @@ if __name__ == '__main__':
         print('| Addresses:         ', addresses)
         print('| Socket Family:     ', connectionSocket.family)
         print('| Socket Type:       ', connectionSocket.type)
-        print('| Protocol:          ', connectionSocket.proto)
+        print('| Protocol:          ', connectionSocket.proto) # TODO protocol name?
         print('| Timeout:           ', connectionSocket.gettimeout())
         print('| Peer name:         ', connectionSocket.getpeername())
         print('|==========================================================\n')
 
         threads.append(socketThread)
+        connectionSocket.close()
 
     serverSocket.close()
