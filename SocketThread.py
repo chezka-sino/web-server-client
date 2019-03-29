@@ -29,4 +29,4 @@ class SocketThread(threading.Thread):
                 response = 'HTTP/1.1 404 Not Found\n\n404 File Not Found'
                 self.connectionSocket.sendall(response.encode())
 
-            self.connectionSocket.close()
+        self.connectionSocket.close()

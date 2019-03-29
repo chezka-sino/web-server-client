@@ -1,11 +1,16 @@
 from socket import *
 import sys
+import time
 
 server_host = sys.argv[1]
 server_port = sys.argv[2]
 filename = sys.argv[3]
 
+# start time
+init_time = time.time()
+
 host_port = "%s:%s" %(server_host, server_port)
+
 try:
     client_socket = socket(AF_INET,SOCK_STREAM)
     client_socket.connect((server_host,int(server_port)))
@@ -23,11 +28,17 @@ try:
 except IOError:
     sys.exit(1)
 
-final = ""
-response_message=client_socket.recv(1024)
-while response_message:
-    final += response_message.decode()
-    response_message = client_socket.recv(1024)
+response_message = client_socket.recv(1024).decode()
 
 client_socket.close()
-print(final)
+print(response_message)
+
+print('========================\n')
+print('TEST OUTPUT')
+print('host name?', gethostbyname())
+print('socket family?', socket.getaddrinfo())
+
+
+# end time
+end_time = time.time()
+print('\nRTT:', '{0:.2f}'.format(abs(init_time - end_time) * 1000) + 'ms')
