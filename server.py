@@ -1,12 +1,14 @@
-from socket import *
-from SocketThread import SocketThread
+"""servey.py: Multithreaded Web Server"""
+__author__ = "Chezka Sino (ID: 9028-67538)"
 
-# sources
-# Web server -- http://joaoventura.net/blog/2017/python-webserver/
-# RTT calculate == https://www.geeksforgeeks.org/program-calculate-round-trip-time-rtt/
+from socket import *
+
+# Imports the thread class for sockets for multithreading
+from SocketThread import SocketThread
 
 if __name__ == '__main__':
 
+    # Prepare a server socket
     serverPort = 8000
     serverHost = '0.0.0.0'
     serverSocket = socket(AF_INET, SOCK_STREAM)
@@ -20,10 +22,12 @@ if __name__ == '__main__':
         print("Ready to serve...")
         connectionSocket, addr = serverSocket.accept()
 
+        # Initialized a thread for the connection socket
         socketThread = SocketThread(connectionSocket,addr)
         socketThread.setDaemon(True)
         socketThread.start()
 
+        # This gets the necessary server details
         hostname, aliases, addresses = gethostbyaddr(gethostbyname(gethostname()))
         print('|==========================================================')
         print('| Computer Name:     ', gethostname())
