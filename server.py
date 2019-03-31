@@ -1,10 +1,6 @@
 from socket import *
 from SocketThread import SocketThread
 
-# sources
-# Web server -- http://joaoventura.net/blog/2017/python-webserver/
-# RTT calculate == https://www.geeksforgeeks.org/program-calculate-round-trip-time-rtt/
-
 if __name__ == '__main__':
 
     serverPort = 8000

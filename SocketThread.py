@@ -1,6 +1,5 @@
 import threading
 
-
 class SocketThread(threading.Thread):
 
     def __init__(self, conn, addr):
