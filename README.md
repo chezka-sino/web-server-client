@@ -56,5 +56,6 @@ Similar to using the browser, it will show a 404 File Not Found error if request
 * Socket Multithreading - [Link 1
 ](https://www.geeksforgeeks.org/socket-programming-multi-threading-python/) | [Link 2](https://www.techbeamers.com/python-tutorial-write-multithreaded-python-server/)
 
-## Authors
+## Author
 * **Chezka Sino** - [Github](https://github.com/chezka-sino) | [LinkedIn](https://www.linkedin.com/in/chezka-sino/)
+
